@@ -1,6 +1,7 @@
 package com.ravimandala.labs.chirp.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -96,6 +97,22 @@ public class TimelineActivity extends Activity {
 
     public void onComposeClick(MenuItem item) {
         Toast.makeText(TimelineActivity.this, "Do something to compose a new Tweet now", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, ComposeActivity.class);
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(Constants.LOG_TAG, "Back with requestCode: " + requestCode + "; resultCode: " + resultCode);
+        switch (requestCode) {
+            case 100:
+                if (resultCode == RESULT_OK) {
+                    Toast.makeText(TimelineActivity.this, "Back in Timeline", Toast.LENGTH_LONG).show();
+                }
+                return;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
