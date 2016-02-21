@@ -34,7 +34,7 @@ public class User extends Model {
     public long getUid() { return uid; }
 
     public String getHandle() {
-        return handle;
+        return " @" + handle;
     }
 
     public String getProfileImageUrl() {

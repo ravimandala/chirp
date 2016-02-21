@@ -1,5 +1,7 @@
 package com.ravimandala.labs.chirp.models;
 
+import android.text.format.DateUtils;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -9,7 +11,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "Tweet")
@@ -78,7 +87,14 @@ public class Tweet extends Model {
     }
 
     public String getRelativeTime() {
-        return "22h";
+        String relativeTime = "x ago";
+        DateFormat dateFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+        try {
+            relativeTime = DateUtils.getRelativeTimeSpanString(dateFormat.parse(createdAt).getTime()).toString();
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return relativeTime;
     }
 
     public User getUser() {

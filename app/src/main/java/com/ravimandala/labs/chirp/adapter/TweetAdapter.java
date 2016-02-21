@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ravimandala.labs.chirp.R;
 import com.ravimandala.labs.chirp.models.Tweet;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
     List<Tweet> tweets;
+    Context context;
 
     public TweetAdapter(List<Tweet> tweets) {
         this.tweets = tweets;
@@ -23,7 +26,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
@@ -43,6 +46,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvUsername.setText(tweet.getUser().getUsername());
         holder.tvHandle.setText(tweet.getUser().getHandle());
         holder.tvRelativeTime.setText(tweet.getRelativeTime());
+        holder.tvTweetText.setText(tweet.getBody());
+        Glide.with(context)
+                .load(tweet.getUser().getProfileImageUrl())
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .transform(new CircleTransform())
+                .into(holder.ivProfileImage);
 
 //        RoundedBitmapDrawable img = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
 //        img.setCornerRadius(radius);
@@ -70,6 +81,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 //        @Bind(R.id.tvRelativeTime)
         public TextView tvRelativeTime;
 
+        public TextView tvTweetText;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -77,6 +90,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
             tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
             tvRelativeTime = (TextView) itemView.findViewById(R.id.tvRelativeTime);
+            tvTweetText = (TextView) itemView.findViewById(R.id.tvTweetText);
 
 //            ButterKnife.bind(itemView);
         }
