@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.codepath.oauth.OAuthLoginActivity;
 import com.ravimandala.labs.chirp.R;
-import com.ravimandala.labs.chirp.TimelineActivity;
 import com.ravimandala.labs.chirp.net.TwitterClient;
 import com.ravimandala.labs.chirp.utils.Constants;
 
@@ -32,7 +31,8 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
     public void onLoginSuccess() {
         Log.d(Constants.LOG_TAG, "Login Successful!!");
         Toast.makeText(LoginActivity.this, "Login success!!!", Toast.LENGTH_LONG).show();
-    	Intent i = new Intent(this, TimelineActivity.class);
+        Intent i = new Intent(this, TimelineActivity.class);
+//        i.putExtra();
     	startActivity(i);
     }
 
@@ -42,7 +42,7 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
     }
 
     public void loginToRest(View view) {
-        Log.d("RaviTwitter", "Connecting...");
+        Log.d(Constants.LOG_TAG, "Connecting...");
         getClient().connect();
     }
 }
