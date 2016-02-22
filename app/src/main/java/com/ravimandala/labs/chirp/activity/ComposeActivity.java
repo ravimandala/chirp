@@ -2,33 +2,61 @@ package com.ravimandala.labs.chirp.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ravimandala.labs.chirp.R;
 import com.ravimandala.labs.chirp.app.TwitterClientApplication;
 import com.ravimandala.labs.chirp.models.Tweet;
-import com.ravimandala.labs.chirp.net.TwitterClient;
 import com.ravimandala.labs.chirp.utils.Constants;
 
 import org.json.JSONObject;
 
 public class ComposeActivity extends Activity {
 
+    EditText etTweetText;
+    TextView tvCharsLeft;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+
+        etTweetText = (EditText) findViewById(R.id.etNewTweet);
+        tvCharsLeft = (TextView) findViewById(R.id.tvCharsLeft);
+        etTweetText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int charsLeft = 140-s.length();
+                tvCharsLeft.setText(String.valueOf(charsLeft));
+                if (charsLeft < 0) {
+                    tvCharsLeft.setTextColor(Color.RED);
+                } else {
+                    tvCharsLeft.setTextColor(Color.BLACK);
+                }
+            }
+        });
     }
 
     public void onTweetClicked(View view) {
-        TextView tvTweetText = (TextView) findViewById(R.id.etNewTweet);
-
         TwitterClientApplication.getRestClient().postUpdate(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int i, JSONObject jsonObject) {
@@ -46,6 +74,6 @@ public class ComposeActivity extends Activity {
                 Log.d(Constants.LOG_TAG, "Failed with " + s);
                 throwable.printStackTrace();
             }
-        }, tvTweetText.getText().toString());
+        }, etTweetText.getText().toString());
     }
 }
