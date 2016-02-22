@@ -32,7 +32,6 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
         Log.d(Constants.LOG_TAG, "Login Successful!!");
         Toast.makeText(LoginActivity.this, "Login success!!!", Toast.LENGTH_LONG).show();
         Intent i = new Intent(this, TimelineActivity.class);
-//        i.putExtra();
     	startActivity(i);
     }
 
@@ -41,7 +40,7 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
         e.printStackTrace();
     }
 
-    public void loginToRest(View view) {
+    public void loginToTwitter(View view) {
         Log.d(Constants.LOG_TAG, "Connecting...");
         getClient().connect();
     }
