@@ -54,12 +54,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .transform(new CircleTransform())
                 .into(holder.ivProfileImage);
-
-//        RoundedBitmapDrawable img = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-//        img.setCornerRadius(radius);
-//
-//        imageView.setImageDrawable(img);
-
     }
 
     @Override

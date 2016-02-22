@@ -1,5 +1,7 @@
 package com.ravimandala.labs.chirp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.format.DateUtils;
 
 import com.activeandroid.Model;
@@ -22,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @Table(name = "Tweet")
-public class Tweet extends Model {
+public class Tweet extends Model implements Parcelable {
     @Column(name = "uid")
     private long uid;
     @Column(name = "body")
@@ -36,27 +38,27 @@ public class Tweet extends Model {
         super();
     }
 
-    public Tweet(JSONObject json) throws JSONException {
-        super();
-
-        this.uid = json.getLong("id");
-        this.body = json.getString("text");
-        this.createdAt = json.getString("created_at");
-        JSONObject jsonUser = json.optJSONObject("user");
-        if (jsonUser != null) {
-             this.user = User.fromJson(jsonUser);
+    public static Tweet fromJson(JSONObject json) {
+        Tweet tweet = new Tweet();
+        try {
+            tweet.uid = json.getLong("id");
+            tweet.body = json.getString("text");
+            tweet.createdAt = json.getString("created_at");
+            JSONObject jsonUser = json.optJSONObject("user");
+            if (jsonUser != null) {
+                tweet.user = User.fromJson(jsonUser);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        return tweet;
     }
 
     public static List<Tweet> fromJsonArray(JSONArray jsonArray) {
         ArrayList<Tweet> tweets = new ArrayList<>();
 
         for (int i=0; i<jsonArray.length(); i++) {
-            try {
-                tweets.add(new Tweet(jsonArray.getJSONObject(i)));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            tweets.add(fromJson(jsonArray.optJSONObject(i)));
         }
 
         return tweets;
@@ -100,4 +102,34 @@ public class Tweet extends Model {
     public User getUser() {
         return user;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.uid);
+        dest.writeString(this.body);
+        dest.writeString(this.createdAt);
+        dest.writeParcelable(this.user, flags);
+    }
+
+    protected Tweet(Parcel in) {
+        this.uid = in.readLong();
+        this.body = in.readString();
+        this.createdAt = in.readString();
+        this.user = in.readParcelable(User.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>() {
+        public Tweet createFromParcel(Parcel source) {
+            return new Tweet(source);
+        }
+
+        public Tweet[] newArray(int size) {
+            return new Tweet[size];
+        }
+    };
 }
