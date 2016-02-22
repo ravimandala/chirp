@@ -3,6 +3,7 @@ package com.ravimandala.labs.chirp.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class TimelineActivity extends Activity {
     RecyclerView rvTweets;
     TweetAdapter adapter;
     LinearLayoutManager layoutManager;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,25 @@ public class TimelineActivity extends Activity {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 Log.d(Constants.LOG_TAG, "onLoadMore invoked with page = " + page + "; totalItemsCount = " + totalItemsCount);
-                customLoadMoreDataFromApi(page);
+                populateTimeline(tweets.size());
             }
         });
         client = TwitterClientApplication.getRestClient();
-        loadMoreTweets();
+        populateTimeline(0);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                populateTimeline(0);
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     @Override
@@ -62,40 +78,31 @@ public class TimelineActivity extends Activity {
         return true;
     }
 
-    private void customLoadMoreDataFromApi(int page) {
-        loadMoreTweets();
-
-        int currSize = adapter.getItemCount();
-        adapter.notifyItemRangeInserted(currSize, tweets.size() - 1);
-    }
-
-
-    private void loadMoreTweets() {
-        long sinceId = 1;
-        long maxId = -1;
-        int tweetCount = tweets.size();
-        if (tweets.size() > 0) {
-            maxId = tweets.get(tweetCount-1).getUid() - 1;
-        }
-
-        populateTimeline(sinceId, maxId, tweetCount-1);
-    }
+//    private void loadMoreTweets() {
+//        long sinceId = 1;
+//        long maxId = -1;
+//        int tweetCount = tweets.size();
+//        if (tweets.size() > 0) {
+//            maxId = tweets.get(tweetCount-1).getUid() - 1;
+//        }
+//
+//        populateTimeline(sinceId, maxId, tweetCount-1);
+//    }
 
     private void populateTimeline(int index) {
         long sinceId = 1;
         long maxId = -1;
         int tweetCount = tweets.size();
 
-        if (index == -1 && tweetCount > 0)  {
-            sinceId = tweets.get(0).getUid() - 1;
-        } else if (index >= 0 && tweetCount > index) {
-            if (tweetCount > index + 1) {
-                maxId = tweets.get(index+1).getUid() - 1;
+        if (index == 0)  {
+            if (tweetCount > 0) {
+                sinceId = tweets.get(0).getUid();
+            }
+        } else if (index > 0 && tweetCount > index) {
+            if (tweetCount > index) {
+                maxId = tweets.get(index).getUid() - 1;
             }
             sinceId = tweets.get(index).getUid();
-        } else {
-            Log.e(Constants.LOG_TAG, "Invalid request to get tweets at index: " + index + "; current tweetCount: " + tweetCount);
-            return;
         }
         populateTimeline(sinceId, maxId, index);
     }
@@ -108,9 +115,10 @@ public class TimelineActivity extends Activity {
                 List<Tweet> fetchedTweets = Tweet.fromJsonArray(jsonArray);
                 Log.d(Constants.LOG_TAG, "Fetched " + fetchedTweets.size() + " tweets");
                 if (fetchedTweets.size() > 0) {
-                    tweets.addAll(index + 1, fetchedTweets);
-                    adapter.notifyItemRangeInserted(index + 1, tweets.size() - currSize);
+                    tweets.addAll(index, fetchedTweets);
+                    adapter.notifyItemRangeInserted(index, tweets.size() - currSize);
                     Log.d(Constants.LOG_TAG, "Tweet count increased from " + currSize + " to " + tweets.size());
+                    swipeContainer.setRefreshing(false);
                 }
             }
 
@@ -135,7 +143,7 @@ public class TimelineActivity extends Activity {
                     tweets.add(0, (Tweet) data.getParcelableExtra("new_tweet"));
                     adapter.notifyItemRangeInserted(0, 1);
                     rvTweets.scrollToPosition(0);
-//                    populateTimeline(0);
+                    populateTimeline(1);
                 }
                 return;
             default:
