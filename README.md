@@ -4,7 +4,13 @@ Mandala's own version of Twitter Client
 
 **Chirp** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **15** hours spent in total
+Time spent: **17** hours spent in total
+
+Here's a walkthrough of implemented user stories:
+
+![Video Walkthrough of implemented user stories: ](app/src/main/res/drawable-hdpi/app_demo.gif)
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## User Stories
 
@@ -47,14 +53,6 @@ The following **additional** features are implemented:
 
 * [ ] Excellent error handling
 * [ ] Unit tests
-
-## Video Walkthrough 
-
-Here's a walkthrough of implemented user stories:
-
-![Video Walkthrough of implemented user stories: ](app/src/main/res/drawable-hdpi/app_demo.gif)
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
