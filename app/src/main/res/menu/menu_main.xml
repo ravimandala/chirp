@@ -4,8 +4,7 @@
     <item
         android:id="@+id/miCompose"
         android:icon="@drawable/ic_action_compose"
-        app:showAsAction="always"
+        app:showAsAction="withText|always"
         android:title="Compose">
-        <!--android:onClick="onComposeClick"-->
     </item>
 </menu>
