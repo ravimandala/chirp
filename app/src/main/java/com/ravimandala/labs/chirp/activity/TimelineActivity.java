@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ravimandala.labs.chirp.R;
@@ -78,17 +79,6 @@ public class TimelineActivity extends Activity {
         return true;
     }
 
-//    private void loadMoreTweets() {
-//        long sinceId = 1;
-//        long maxId = -1;
-//        int tweetCount = tweets.size();
-//        if (tweets.size() > 0) {
-//            maxId = tweets.get(tweetCount-1).getUid() - 1;
-//        }
-//
-//        populateTimeline(sinceId, maxId, tweetCount-1);
-//    }
-
     private void populateTimeline(int index) {
         long sinceId = 1;
         long maxId = -1;
@@ -129,7 +119,11 @@ public class TimelineActivity extends Activity {
         }, sinceId, maxId, Constants.fetchCount);
     }
 
-    public void onComposeClick(MenuItem item) {
+    public void onComposeClick(View view) {
+        composeTweet();
+    }
+
+    private void composeTweet() {
         Intent intent = new Intent(this, ComposeActivity.class);
         startActivityForResult(intent, 100);
     }
@@ -155,7 +149,7 @@ public class TimelineActivity extends Activity {
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.miCompose:
-                onComposeClick(item);
+                composeTweet();
                 return true;
             default:
                 return super.onMenuItemSelected(featureId, item);
