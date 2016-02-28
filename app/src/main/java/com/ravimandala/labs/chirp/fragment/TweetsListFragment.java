@@ -38,6 +38,7 @@ public abstract class TweetsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tweets_list, parent, false);
 
+        layoutManager = new LinearLayoutManager(getActivity());
         rvTweets = (RecyclerView) v.findViewById(R.id.rvTweets);
         rvTweets.setAdapter(adapter);
         rvTweets.setLayoutManager(layoutManager);
@@ -71,7 +72,6 @@ public abstract class TweetsListFragment extends Fragment {
 
         tweets = new ArrayList<>();
         adapter = new TweetAdapter(tweets);
-        layoutManager = new LinearLayoutManager(getActivity());
         client = TwitterClientApplication.getRestClient();
         populateTimeline(0);
     }
