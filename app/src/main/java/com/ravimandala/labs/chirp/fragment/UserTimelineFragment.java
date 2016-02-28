@@ -1,6 +1,7 @@
 package com.ravimandala.labs.chirp.fragment;
 
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -13,7 +14,17 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class UserTimelineFragment extends TweetsListFragment {
+    public static UserTimelineFragment newInstance(String screenName) {
+        UserTimelineFragment userTimelineFragment = new UserTimelineFragment();
+        Bundle args = new Bundle();
+        args.putString(Constants.paramScreenName, screenName);
+        userTimelineFragment.setArguments(args);
+        return userTimelineFragment;
+    }
+
     protected void populateTimeline(long sinceId, long maxId, final int index) {
+        String screenName = (getArguments() == null ?
+                null : getArguments().getString(Constants.paramScreenName));
         client.getUserTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray jsonArray) {
@@ -32,6 +43,6 @@ public class UserTimelineFragment extends TweetsListFragment {
             public void onFailure(Throwable throwable, JSONObject jsonObject) {
                 throwable.printStackTrace();
             }
-        }, sinceId, maxId, Constants.fetchCount);
+        }, sinceId, maxId, Constants.fetchCount, screenName);
     }
 }

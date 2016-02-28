@@ -48,8 +48,8 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void onProfileClick(MenuItem item) {
-//        Intent intent = new Intent(this, ProfileActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
     }
 
     public void onComposeClick(View view) {

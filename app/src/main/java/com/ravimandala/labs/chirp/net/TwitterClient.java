@@ -1,5 +1,6 @@
 package com.ravimandala.labs.chirp.net;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
@@ -54,11 +55,14 @@ public class TwitterClient extends OAuthBaseClient {
         client.get(apiUrl, null, handler);
     }
 
-    public void getUserTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count) {
+    public void getUserTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count, String screenName) {
         String apiUrl = getApiUrl("statuses/user_timeline.json");
         Log.d(Constants.LOG_TAG, "Sending API call to " + apiUrl);
         RequestParams params = new RequestParams();
         params.put("count", String.valueOf(count));
+        if (screenName != null && !screenName.isEmpty()) {
+            params.put(Constants.paramScreenName, screenName);
+        }
         if (maxId != -1) {
             params.put("max_id", String.valueOf(maxId));
         }
@@ -74,5 +78,11 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("status", tweet);
         client.post(apiUrl, params, handler);
+    }
+
+    public void getUserInfo(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        Log.d(Constants.LOG_TAG, "Sending API call to " + apiUrl);
+        client.get(apiUrl, null, handler);
     }
 }
