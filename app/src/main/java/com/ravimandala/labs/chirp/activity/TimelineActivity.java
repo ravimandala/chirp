@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ravimandala.labs.chirp.R;
@@ -25,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimelineActivity extends Activity {
+public class TimelineActivity extends AppCompatActivity {
 
     private TwitterClient client;
     ArrayList<Tweet> tweets;
@@ -130,6 +132,14 @@ public class TimelineActivity extends Activity {
     }
 
     public void onComposeClick(MenuItem item) {
+        openComposeActivity();
+    }
+
+    public void onComposeClick(View view) {
+        openComposeActivity();
+    }
+
+    private void openComposeActivity() {
         Intent intent = new Intent(this, ComposeActivity.class);
         startActivityForResult(intent, 100);
     }
@@ -151,14 +161,14 @@ public class TimelineActivity extends Activity {
         }
     }
 
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.miCompose:
-                onComposeClick(item);
-                return true;
-            default:
-                return super.onMenuItemSelected(featureId, item);
-        }
-    }
+//    @Override
+//    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.miCompose:
+//                onComposeClick(item);
+//                return true;
+//            default:
+//                return super.onMenuItemSelected(featureId, item);
+//        }
+//    }
 }
