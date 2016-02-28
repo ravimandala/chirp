@@ -9,6 +9,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.ravimandala.labs.chirp.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,10 +39,10 @@ public class Tweet extends Model implements Parcelable {
     public static Tweet fromJson(JSONObject json) {
         Tweet tweet = new Tweet();
         try {
-            tweet.uid = json.getLong("id");
-            tweet.body = json.getString("text");
-            tweet.createdAt = json.getString("created_at");
-            JSONObject jsonUser = json.optJSONObject("user");
+            tweet.uid = json.getLong(Constants.paramId);
+            tweet.body = json.getString(Constants.paramText);
+            tweet.createdAt = json.getString(Constants.paramCreatedAt);
+            JSONObject jsonUser = json.optJSONObject(Constants.paramUser);
             if (jsonUser != null) {
                 tweet.user = User.fromJson(jsonUser);
             }

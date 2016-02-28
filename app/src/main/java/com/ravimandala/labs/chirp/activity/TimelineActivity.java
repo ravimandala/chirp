@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.ravimandala.labs.chirp.R;
@@ -44,6 +45,11 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void onComposeClick(MenuItem item) {
         openComposeActivity();
+    }
+
+    public void onProfileClick(MenuItem item) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
     }
 
     public void onComposeClick(View view) {

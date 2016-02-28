@@ -40,13 +40,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:host="chirp" android:scheme="oauth" />
+                <data
+                    android:host="chirp"
+                    android:scheme="oauth" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TimelineActivity"
             android:label="@string/title_activity_timeline" />
-        <activity android:name=".activity.ComposeActivity"></activity>
+        <activity android:name=".activity.ComposeActivity" />
+        <activity android:name=".activity.ProfileActivity" />
     </application>
 
 </manifest>

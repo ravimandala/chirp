@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.ravimandala.labs.chirp.utils.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,10 +25,10 @@ public class User extends Model implements Parcelable {
     public static User fromJson(JSONObject json) {
         User user = new User();
         try {
-            user.uid = json.getLong("id");
-            user.username = json.getString("name");
-            user.handle = json.getString("screen_name");
-            user.profileImageUrl = json.getString("profile_image_url");
+            user.uid = json.getLong(Constants.paramId);
+            user.username = json.getString(Constants.paramName);
+            user.handle = json.getString(Constants.paramScreenName);
+            user.profileImageUrl = json.getString(Constants.paramProfileUrl);
         } catch (JSONException e) {
             e.printStackTrace();
         }
