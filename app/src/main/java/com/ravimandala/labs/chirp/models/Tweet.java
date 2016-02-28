@@ -3,6 +3,7 @@ package com.ravimandala.labs.chirp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -14,13 +15,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Table(name = "Tweet")
@@ -52,6 +49,11 @@ public class Tweet extends Model implements Parcelable {
             e.printStackTrace();
         }
         return tweet;
+    }
+
+    @Override
+    public String toString() {
+        return "UID: " + uid + "; Username: " + user.getUsername() + "; Body: " + body;
     }
 
     public static List<Tweet> fromJsonArray(JSONArray jsonArray) {

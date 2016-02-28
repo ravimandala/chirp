@@ -26,8 +26,36 @@ public class TwitterClient extends OAuthBaseClient {
         Log.d(Constants.LOG_TAG, "Created a Twitter Client");
     }
 
-    public void getTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count) {
+    public void getHomeTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count) {
         String apiUrl = getApiUrl("statuses/home_timeline.json");
+        Log.d(Constants.LOG_TAG, "Sending API call to " + apiUrl);
+        RequestParams params = new RequestParams();
+        params.put("count", String.valueOf(count));
+        if (maxId != -1) {
+            params.put("max_id", String.valueOf(maxId));
+        }
+        if (sinceId != -1) {
+            params.put("since_id", String.valueOf(sinceId));
+        }
+        client.get(apiUrl, null, handler);
+    }
+
+    public void getMentionsTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        Log.d(Constants.LOG_TAG, "Sending API call to " + apiUrl);
+        RequestParams params = new RequestParams();
+        params.put("count", String.valueOf(count));
+        if (maxId != -1) {
+            params.put("max_id", String.valueOf(maxId));
+        }
+        if (sinceId != -1) {
+            params.put("since_id", String.valueOf(sinceId));
+        }
+        client.get(apiUrl, null, handler);
+    }
+
+    public void getUserTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
         Log.d(Constants.LOG_TAG, "Sending API call to " + apiUrl);
         RequestParams params = new RequestParams();
         params.put("count", String.valueOf(count));

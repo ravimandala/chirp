@@ -12,9 +12,9 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class HomeTimelineFragment extends TweetsListFragment {
+public class MentionsTimelineFragment extends TweetsListFragment {
     protected void populateTimeline(long sinceId, long maxId, final int index) {
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
+        client.getMentionsTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray jsonArray) {
                 int currSize = adapter.getItemCount();
@@ -33,12 +33,5 @@ public class HomeTimelineFragment extends TweetsListFragment {
                 throwable.printStackTrace();
             }
         }, sinceId, maxId, Constants.fetchCount);
-    }
-
-    public void add(int index, Tweet tweet) {
-        tweets.add(0, tweet);
-        adapter.notifyItemRangeInserted(0, 1);
-        rvTweets.scrollToPosition(0);
-        populateTimeline(1);
     }
 }

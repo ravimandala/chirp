@@ -62,19 +62,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-//        @Bind(R.id.ivProfileImage)
         public ImageView ivProfileImage;
-
-//        @Bind(R.id.tvUsername)
         public TextView tvUsername;
-
-//        @Bind(R.id.tvHandle)
         public TextView tvHandle;
-
-//        @Bind(R.id.tvRelativeTime)
         public TextView tvRelativeTime;
-
         public TextView tvTweetText;
 
         public ViewHolder(View itemView) {
@@ -85,8 +76,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
             tvRelativeTime = (TextView) itemView.findViewById(R.id.tvRelativeTime);
             tvTweetText = (TextView) itemView.findViewById(R.id.tvTweetText);
-
-//            ButterKnife.bind(itemView);
         }
     }
 }
