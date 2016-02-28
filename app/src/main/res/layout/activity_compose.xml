@@ -12,7 +12,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:lines="4" />
+        android:lines="4"
+        android:gravity="top"
+        android:hint="Say something..." />
 
     <LinearLayout
         android:orientation="horizontal"
