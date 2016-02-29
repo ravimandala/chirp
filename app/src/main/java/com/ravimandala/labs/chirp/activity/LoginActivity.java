@@ -21,13 +21,6 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
-    }
-
-    @Override
     public void onLoginSuccess() {
         Log.d(Constants.LOG_TAG, "Login Successful!!");
         Toast.makeText(LoginActivity.this, "Login success!!!", Toast.LENGTH_LONG).show();

@@ -8,19 +8,16 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.ravimandala.labs.chirp.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Table(name = "Tweet")
@@ -41,10 +38,10 @@ public class Tweet extends Model implements Parcelable {
     public static Tweet fromJson(JSONObject json) {
         Tweet tweet = new Tweet();
         try {
-            tweet.uid = json.getLong("id");
-            tweet.body = json.getString("text");
-            tweet.createdAt = json.getString("created_at");
-            JSONObject jsonUser = json.optJSONObject("user");
+            tweet.uid = json.getLong(Constants.paramId);
+            tweet.body = json.getString(Constants.keyText);
+            tweet.createdAt = json.getString(Constants.keyCreatedAt);
+            JSONObject jsonUser = json.optJSONObject(Constants.paramUser);
             if (jsonUser != null) {
                 tweet.user = User.fromJson(jsonUser);
             }
@@ -52,6 +49,11 @@ public class Tweet extends Model implements Parcelable {
             e.printStackTrace();
         }
         return tweet;
+    }
+
+    @Override
+    public String toString() {
+        return "UID: " + uid + "; Username: " + user.getUsername() + "; Body: " + body;
     }
 
     public static List<Tweet> fromJsonArray(JSONArray jsonArray) {

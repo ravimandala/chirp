@@ -12,9 +12,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:lines="5"
+        android:lines="4"
         android:gravity="top"
-        android:hint="Say Something..." />
+        android:hint="Say something..." />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -32,9 +32,10 @@
             android:text="140"
             android:gravity="center_vertical"
             android:id="@+id/tvCharsLeft"
-            android:layout_weight="0.17" />
+            android:layout_weight="0.13"
+            android:textStyle="bold" />
         <Button
-            android:layout_width="204dp"
+            android:layout_width="128dp"
             android:layout_height="wrap_content"
             android:text="@string/btTweet"
             android:id="@+id/btTweet"

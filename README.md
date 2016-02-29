@@ -1,10 +1,12 @@
-# Project 3: **Chirp**
-Mandala's own version of Twitter Client
+# Project 4: **Chirp v2.0**
+Mandala's own version of Twitter Client version 2.0
 
 
-**Chirp** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+**Chirp** is an android app that allows a user to view home and mentions timelines, view user profiles with user timelines, as well as compose and post a new tweet.
+The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **17** hours spent in total
+
+Time spent: **22** hours spent in total
 
 Here's a walkthrough of implemented user stories:
 
@@ -12,7 +14,28 @@ Here's a walkthrough of implemented user stories:
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
-## User Stories
+## Week#4 User Stories
+
+The following **required** functionality is completed:
+
+* [x] The app includes **all required user stories** from Week 3 Twitter Client
+* [x] User can **switch between Timeline and Mention views using tabs**
+  * [x] User can view their home timeline tweets.
+  * [x] User can view the recent mentions of their username.
+* [x] User can navigate to **view their own profile**
+  * [x] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
+* [x] User can **click on the profile image** in any tweet to see **another user's** profile.
+ * [x] User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
+ * [x] Profile view includes that user's timeline
+* [x] User can [infinitely paginate](http://guides.codepath.com/android/Endless-Scrolling-with-AdapterViews-and-RecyclerView) any of these timelines (home, mentions, user) by scrolling to the bottom
+
+The following **bonus** features are implemented:
+
+* [x] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
+* [ ] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce view boilerplate.
+* [ ] User can view their direct messages (or send new ones)
+
+## Week#3 User Stories
 
 The following **required** functionality is completed:
 
@@ -31,37 +54,18 @@ The following **optional** features are implemented:
 
 * [x] User can **see a counter with total number of characters left for tweet** on compose tweet page
 * [x] User can **pull down to refresh tweets timeline**
-* [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
-* [ ] User can **open the twitter app offline and see last loaded tweets**. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
-* [ ] User can tap a tweet to **open a detailed tweet view**
-* [ ] User can **select "reply" from detail view to respond to a tweet**
-* [ ] Improve the user interface and theme the app to feel "twitter branded"
 
 The following **bonus** features are implemented:
 
 * [x] [Leverage RecyclerView](http://guides.codepath.com/android/Using-the-RecyclerView) as a replacement for the ListView and ArrayAdapter for all lists of tweets.
 * [x] Replace Picasso with [Glide](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) for more efficient image rendering.
-* [ ] Move the "Compose" action to a [FloatingActionButton](https://github.com/codepath/android_guides/wiki/Floating-Action-Buttons) instead of on the AppBar.
-* [ ] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce view boilerplate.
-* [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
-* [ ] Leverage the popular [GSON library](http://guides.codepath.com/android/Using-Android-Async-Http-Client#decoding-with-gson-library) to streamline the parsing of JSON data.
-* [ ] User can see embedded image media within the tweet detail view
-* [ ] User can watch embedded video within the tweet
-* [ ] Compose tweet functionality is build using modal overlay
-
-The following **additional** features are implemented:
-
-* [ ] Excellent error handling
-* [ ] Unit tests
-
-## Notes
-
-Describe any challenges encountered while building the app.
+* [x] Move the "Compose" action to a [FloatingActionButton](https://github.com/codepath/android_guides/wiki/Floating-Action-Buttons) instead of on the AppBar.
+* [x] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
-- [Picasso](https://github.com/bumptech/glide/) - Image loading and caching library recommended for Android
+- [Glide](https://github.com/bumptech/glide/) - Image loading and caching library recommended for Android
 
 ## License
 
