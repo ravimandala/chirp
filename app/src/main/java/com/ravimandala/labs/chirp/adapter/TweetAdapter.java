@@ -1,6 +1,7 @@
 package com.ravimandala.labs.chirp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ravimandala.labs.chirp.R;
+import com.ravimandala.labs.chirp.activity.ProfileActivity;
 import com.ravimandala.labs.chirp.models.Tweet;
+import com.ravimandala.labs.chirp.utils.Constants;
 
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get the data model based on position
-        Tweet tweet = tweets.get(position);
+        final Tweet tweet = tweets.get(position);
 
         // Set item views based on the data model
         holder.tvUsername.setText(tweet.getUser().getUsername());
@@ -52,8 +55,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .transform(new CircleTransform())
                 .into(holder.ivProfileImage);
+        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra(Constants.keyScreenName, tweet.getUser().getHandle());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

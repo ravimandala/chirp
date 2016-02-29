@@ -81,14 +81,14 @@ public abstract class TweetsListFragment extends Fragment {
         long maxId = -1;
         int tweetCount = tweets.size();
 
-        if (index == 0)  {
-            if (tweetCount > 0) {
-                sinceId = tweets.get(0).getUid();
-            }
-        } else if (index > 0 && tweetCount > index) {
+        if (tweetCount > 0 && tweetCount >= index) {
             if (tweetCount > index) {
                 maxId = tweets.get(index).getUid() - 1;
+            } else {
+                maxId = tweets.get(index - 1).getUid() - 1;
             }
+        }
+        if (index >= 0 && tweetCount > index)  {
             sinceId = tweets.get(index).getUid();
         }
         populateTimeline(sinceId, maxId, index);

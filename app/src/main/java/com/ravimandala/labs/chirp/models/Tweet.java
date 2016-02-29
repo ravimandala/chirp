@@ -3,7 +3,6 @@ package com.ravimandala.labs.chirp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -40,8 +39,8 @@ public class Tweet extends Model implements Parcelable {
         Tweet tweet = new Tweet();
         try {
             tweet.uid = json.getLong(Constants.paramId);
-            tweet.body = json.getString(Constants.paramText);
-            tweet.createdAt = json.getString(Constants.paramCreatedAt);
+            tweet.body = json.getString(Constants.keyText);
+            tweet.createdAt = json.getString(Constants.keyCreatedAt);
             JSONObject jsonUser = json.optJSONObject(Constants.paramUser);
             if (jsonUser != null) {
                 tweet.user = User.fromJson(jsonUser);

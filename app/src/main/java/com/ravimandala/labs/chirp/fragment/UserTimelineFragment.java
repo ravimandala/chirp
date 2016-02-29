@@ -17,14 +17,16 @@ public class UserTimelineFragment extends TweetsListFragment {
     public static UserTimelineFragment newInstance(String screenName) {
         UserTimelineFragment userTimelineFragment = new UserTimelineFragment();
         Bundle args = new Bundle();
-        args.putString(Constants.paramScreenName, screenName);
+        args.putString(Constants.keyScreenName, screenName);
         userTimelineFragment.setArguments(args);
         return userTimelineFragment;
     }
 
     protected void populateTimeline(long sinceId, long maxId, final int index) {
-        String screenName = (getArguments() == null ?
-                null : getArguments().getString(Constants.paramScreenName));
+        String screenName = null;
+        if (getArguments() != null && getArguments().getString(Constants.keyScreenName) != null) {
+            screenName = getArguments().getString(Constants.keyScreenName).substring(2);
+        }
         client.getUserTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray jsonArray) {
@@ -40,7 +42,8 @@ public class UserTimelineFragment extends TweetsListFragment {
             }
 
             @Override
-            public void onFailure(Throwable throwable, JSONObject jsonObject) {
+            public void onFailure(Throwable throwable, JSONObject errorResponse) {
+                Log.e(Constants.LOG_TAG, "Failed to populate user timeline: " + errorResponse.toString());
                 throwable.printStackTrace();
             }
         }, sinceId, maxId, Constants.fetchCount, screenName);

@@ -29,7 +29,8 @@ public class MentionsTimelineFragment extends TweetsListFragment {
             }
 
             @Override
-            public void onFailure(Throwable throwable, JSONObject jsonObject) {
+            public void onFailure(Throwable throwable, JSONObject errorResponse) {
+                Log.e(Constants.LOG_TAG, "Failed to get Mentions: " + errorResponse.toString());
                 throwable.printStackTrace();
             }
         }, sinceId, maxId, Constants.fetchCount);

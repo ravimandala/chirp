@@ -8,9 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.ravimandala.labs.chirp.R;
@@ -67,9 +64,9 @@ public class TimelineActivity extends AppCompatActivity {
         switch (requestCode) {
             case 100:
                 if (resultCode == RESULT_OK) {
+                    vpViewPager.setCurrentItem(0);
                     twitterFragmentPagerAdapter.getHomeTimelineFragment()
                             .add(0, (Tweet) data.getParcelableExtra("new_tweet"));
-                    vpViewPager.setCurrentItem(0);
                 }
                 return;
             default:

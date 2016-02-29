@@ -1,6 +1,5 @@
 package com.ravimandala.labs.chirp.net;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
@@ -25,6 +24,7 @@ public class TwitterClient extends OAuthBaseClient {
                 context.getResources().getString(R.string.api_secret),
                 REST_CALLBACK_URL);
         Log.d(Constants.LOG_TAG, "Created a Twitter Client");
+
     }
 
     public void getHomeTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count) {
@@ -38,7 +38,7 @@ public class TwitterClient extends OAuthBaseClient {
         if (sinceId != -1) {
             params.put("since_id", String.valueOf(sinceId));
         }
-        client.get(apiUrl, null, handler);
+        client.get(apiUrl, params, handler);
     }
 
     public void getMentionsTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count) {
@@ -52,7 +52,7 @@ public class TwitterClient extends OAuthBaseClient {
         if (sinceId != -1) {
             params.put("since_id", String.valueOf(sinceId));
         }
-        client.get(apiUrl, null, handler);
+        client.get(apiUrl, params, handler);
     }
 
     public void getUserTimeline(AsyncHttpResponseHandler handler, long sinceId, long maxId, int count, String screenName) {
@@ -61,7 +61,7 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("count", String.valueOf(count));
         if (screenName != null && !screenName.isEmpty()) {
-            params.put(Constants.paramScreenName, screenName);
+            params.put(Constants.keyScreenName, screenName);
         }
         if (maxId != -1) {
             params.put("max_id", String.valueOf(maxId));
@@ -69,7 +69,7 @@ public class TwitterClient extends OAuthBaseClient {
         if (sinceId != -1) {
             params.put("since_id", String.valueOf(sinceId));
         }
-        client.get(apiUrl, null, handler);
+        client.get(apiUrl, params, handler);
     }
 
     public void postUpdate(AsyncHttpResponseHandler handler, String tweet) {
@@ -80,9 +80,15 @@ public class TwitterClient extends OAuthBaseClient {
         client.post(apiUrl, params, handler);
     }
 
-    public void getUserInfo(AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("statuses/user_timeline.json");
-        Log.d(Constants.LOG_TAG, "Sending API call to " + apiUrl);
-        client.get(apiUrl, null, handler);
+    public void getUserInfo(AsyncHttpResponseHandler handler, String screenName) {
+        if (screenName != null && !screenName.isEmpty()) {
+            RequestParams params = new RequestParams();
+            params.put(Constants.keyScreenName, screenName.substring(2));
+            Log.d(Constants.LOG_TAG, "Sending API call to users/show.json");
+            client.get(getApiUrl("users/show.json"), params, handler);
+        } else {
+            Log.d(Constants.LOG_TAG, "Sending API call to account/verify_credentials.json");
+            client.get(getApiUrl("account/verify_credentials.json"), null, handler);
+        }
     }
 }
