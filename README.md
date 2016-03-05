@@ -29,6 +29,18 @@ The following **required** functionality is completed:
  * [x] Profile view includes that user's timeline
 * [x] User can [infinitely paginate](http://guides.codepath.com/android/Endless-Scrolling-with-AdapterViews-and-RecyclerView) any of these timelines (home, mentions, user) by scrolling to the bottom
 
+The following **optional** features are implemented:
+
+* [ ] User can view following / followers list through the profile
+* [ ] Implements robust error handling, [check if internet is available](http://guides.codepath.com/android/Sending-and-Managing-Network-Requests#checking-for-network-connectivity), handle error cases, network failures
+* [ ] When a network request is sent, user sees an [indeterminate progress indicator](http://guides.codepath.com/android/Handling-ProgressBars#progress-within-actionbar)
+* [ ] User can **"reply" to any tweet on their home timeline**
+  * [ ] The user that wrote the original tweet is automatically "@" replied in compose
+* [ ] User can click on a tweet to be **taken to a "detail view"** of that tweet
+ * [ ] User can take favorite (and unfavorite) or retweet actions on a tweet
+* [ ] Improve the user interface and theme the app to feel twitter branded
+* [ ] User can **search for tweets matching a particular query** and see results
+
 The following **bonus** features are implemented:
 
 * [x] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
@@ -54,6 +66,11 @@ The following **optional** features are implemented:
 
 * [x] User can **see a counter with total number of characters left for tweet** on compose tweet page
 * [x] User can **pull down to refresh tweets timeline**
+* [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
+* [ ] User can **open the twitter app offline and see last loaded tweets**. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
+* [ ] User can tap a tweet to **open a detailed tweet view**
+* [ ] User can **select "reply" from detail view to respond to a tweet**
+* [ ] Improve the user interface and theme the app to feel "twitter branded"
 
 The following **bonus** features are implemented:
 
@@ -61,6 +78,20 @@ The following **bonus** features are implemented:
 * [x] Replace Picasso with [Glide](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) for more efficient image rendering.
 * [x] Move the "Compose" action to a [FloatingActionButton](https://github.com/codepath/android_guides/wiki/Floating-Action-Buttons) instead of on the AppBar.
 * [x] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
+* [ ] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce view boilerplate.
+* [ ] Leverage the popular [GSON library](http://guides.codepath.com/android/Using-Android-Async-Http-Client#decoding-with-gson-library) to streamline the parsing of JSON data.
+* [ ] User can see embedded image media within the tweet detail view
+* [ ] User can watch embedded video within the tweet
+* [ ] Compose tweet functionality is build using modal overlay
+
+The following **additional** features are implemented:
+
+* [ ] Excellent error handling
+* [ ] Unit tests
+
+## Notes
+
+All izzz well!!!
 
 ## Open-source libraries used
 
